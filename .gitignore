@@ -1,0 +1,27 @@
+# Ignore everything
+*
+
+# But keep this .gitignore itself
+!.gitignore
+
+# Keep the directories we're configuring
+!
+!sway/
+!sway/**
+!waybar/
+!waybar/**
+!foot/
+!foot/**
+!mako/
+!mako/**
+!wofi/
+!wofi/**
+!swappy/
+!swappy/**
+!zsh/
+!zs
+#G configuration
+!user-dirs.dirs
+
+# Keep .zshrc
+!.zshrc

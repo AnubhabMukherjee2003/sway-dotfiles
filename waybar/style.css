@@ -1,0 +1,63 @@
+* {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+}
+
+window#waybar {
+    background: #141a1b;
+    color: #eeeeee;
+}
+
+#workspaces {
+    margin-left: 6px;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    color: #d6d6d6;
+    background: transparent;
+    border: none;
+}
+
+#workspaces button.focused {
+    background: #88ad62;
+    color: #141a1b;
+}
+
+#workspaces button.urgent {
+    background: #cd3f45;
+    color: #eeeeee;
+}
+
+#clock,
+#network,
+#pulseaudio,
+#battery,
+#tray {
+    padding: 0 10px;
+    margin: 3px 2px;
+}
+
+#clock {
+    color: #eeeeee;
+}
+
+#network {
+    color: #55b5db;
+}
+
+#pulseaudio {
+    color: #88ad62;
+}
+
+#battery {
+    color: #e6cd69;
+}
+
+#battery.warning {
+    color: #db7b55;
+}
+
+#battery.critical {
+    color: #cd3f45;
+}
