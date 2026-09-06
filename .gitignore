@@ -18,8 +18,7 @@
 !wofi/**
 !swappy/
 !swappy/**
-!zsh/
-!zs
+!zsh/**
 #G configuration
 !user-dirs.dirs
 
