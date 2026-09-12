@@ -6,7 +6,7 @@ ConditionEnvironment=WAYLAND_DISPLAY
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/waybar -c %h/.config/waybar/config.jsonc -s %h/.config/waybar/style.css
+ExecStart=%h/.config/sway/scripts/waybar.sh
 Restart=on-failure
 RestartSec=1
 

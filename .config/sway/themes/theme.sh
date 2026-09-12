@@ -18,15 +18,13 @@ if [[ $# -lt 1 ]]; then
     echo "Usage: $(basename "$0") <theme-name>"
     echo ""
     echo "Available themes:"
-    ls -1 "$THEME_DIR"/*.conf 2>/dev/null | \
-        xargs -I {} basename {} .conf | \
-        grep -v "^active$" | \
-        sort
+    find "$THEME_DIR" -mindepth 2 -maxdepth 2 -name theme.conf -printf '%h\n' 2>/dev/null | \
+        xargs -r -n1 basename | sort
     exit 1
 fi
 
 REQUESTED_THEME="$1"
-THEME_FILE="$THEME_DIR/${REQUESTED_THEME}.conf"
+THEME_FILE="$THEME_DIR/$REQUESTED_THEME/theme.conf"
 
 # Validate theme exists
 if [[ ! -f "$THEME_FILE" ]]; then
@@ -58,31 +56,42 @@ sed -n '/^set \$\(background-color\|text-color\|accent-color\|selection-color\|c
 # Generate application-specific theme files
 # ============================================
 
-# Extract colors for use in generation
-eval "$(sed -n '/^set \$\(background-color\|text-color\|accent-color\|color[0-9]*\) /p' "$THEME_FILE" | \
-    sed "s/set //g" | sed "s/ //g")"
+# Extract colors for use in generation. Theme definitions use Sway variable
+# names, so parse the values explicitly instead of evaluating their syntax.
+theme_value() {
+    sed -n -E "s/^set \\\$${1}[[:space:]]+([^[:space:]#]+).*/\\1/p" "$THEME_FILE" | head -n1
+}
+
+background_color="$(theme_value background-color)"
+text_color="$(theme_value text-color)"
+accent_color="$(theme_value accent-color)"
+selection_color="$(theme_value selection-color)"
+
+for color_index in {0..15}; do
+    printf -v "color${color_index}" '%s' "$(theme_value "color${color_index}")"
+done
 
 # Generate Waybar colors.css
 cat > "$GENERATED_DIR/waybar-colors.css" << EOF
 /* Generated waybar colors from theme: $REQUESTED_THEME */
 
-@define-color accent $accent-color;
-@define-color background $background-color;
-@define-color foreground $text-color;
-@define-color selection $selection-color;
+@define-color accent $accent_color;
+@define-color background $background_color;
+@define-color foreground $text_color;
+@define-color selection $selection_color;
 
 window {
-    background-color: $background-color;
-    color: $text-color;
+    background-color: $background_color;
+    color: $text_color;
 }
 
 button:hover {
-    background-color: $selection-color;
+    background-color: $selection_color;
 }
 
 button.focused {
-    background-color: $accent-color;
-    color: $background-color;
+    background-color: $accent_color;
+    color: $background_color;
 }
 EOF
 
@@ -91,9 +100,9 @@ echo "✓ Generated Waybar colors"
 # Generate Mako colors configuration
 cat > "$GENERATED_DIR/mako-colors" << EOF
 # Generated mako colors from theme: $REQUESTED_THEME
-border-color=$accent-color
-background-color=$background-color
-text-color=$text-color
+border-color=$accent_color
+background-color=$background_color
+text-color=$text_color
 EOF
 
 echo "✓ Generated Mako colors"
@@ -103,14 +112,14 @@ cat > "$GENERATED_DIR/wofi-colors.css" << EOF
 /* Generated wofi colors from theme: $REQUESTED_THEME */
 
 * {
-    background-color: $background-color;
-    color: $text-color;
-    border-color: $accent-color;
+    background-color: $background_color;
+    color: $text_color;
+    border-color: $accent_color;
 }
 
 #entry:selected {
-    background-color: $accent-color;
-    color: $background-color;
+    background-color: $accent_color;
+    color: $background_color;
 }
 EOF
 
@@ -122,8 +131,8 @@ cat > "$GENERATED_DIR/foot-colors.ini" << EOF
 
 [colors]
 alpha=0.95
-foreground=$text-color
-background=$background-color
+foreground=$text_color
+background=$background_color
 
 regular0=$color0
 regular1=$color8
@@ -154,13 +163,13 @@ echo ""
 echo "Updating running applications..."
 
 # Reload Sway if connected
-if command -v swaymsg >/dev/null 2>&1 && pgrep -q sway; then
+if command -v swaymsg >/dev/null 2>&1 && pgrep sway >/dev/null 2>&1; then
     swaymsg reload
     echo "✓ Reloaded Sway"
 fi
 
 # Restart Waybar if running
-if pgrep -q waybar; then
+if pgrep waybar >/dev/null 2>&1; then
     pkill waybar
     sleep 0.5
     if [[ -x /usr/bin/waybar ]] || command -v waybar >/dev/null 2>&1; then
@@ -170,7 +179,7 @@ if pgrep -q waybar; then
 fi
 
 # Restart Mako if running
-if pgrep -q mako; then
+if pgrep mako >/dev/null 2>&1; then
     pkill mako
     sleep 0.5
     if [[ -x /usr/bin/mako ]] || command -v mako >/dev/null 2>&1; then

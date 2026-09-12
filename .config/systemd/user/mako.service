@@ -6,7 +6,7 @@ ConditionEnvironment=WAYLAND_DISPLAY
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/mako -c %h/.config/mako/config
+ExecStart=%h/.config/sway/scripts/mako.sh
 Restart=on-failure
 RestartSec=1
 
