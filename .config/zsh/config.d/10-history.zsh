@@ -1,0 +1,12 @@
+# History settings
+HISTSIZE=20000
+SAVEHIST=20000
+HISTFILE="${XDG_CACHE_HOME:-${HOME}/.cache}/zsh/history"
+mkdir -p "$(dirname "$HISTFILE")"
+
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt SHARE_HISTORY

@@ -4,11 +4,12 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-# styles - set the folder for your theme definition file
-set $theme $HOME/.config/sway/themes/matcha-green
+# Load the active theme (managed by theme.sh)
+include $HOME/.config/sway/themes/active.conf
 
-# theme variables
-include $theme/theme.conf
+# Load default theme on first run (fallback)
+# This can be overridden by rerunning: ~/.config/sway/themes/theme.sh <theme-name>
+include $HOME/.config/sway/themes/matcha-green/theme.conf
 
 # user theme variable can override the global theme
 include $HOME/.config/sway/definitions.d/theme.conf

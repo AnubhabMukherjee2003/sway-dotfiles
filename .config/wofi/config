@@ -1,0 +1,17 @@
+# Wofi application launcher configuration
+# Theme is handled by the central theme system
+
+[launcher]
+# Display properties
+width=600
+height=400
+
+# Columns and sizing
+columns=3
+hide_scroll=false
+
+# Text properties
+font=Monospace 11
+
+# Behavior
+monitor_geometry=true

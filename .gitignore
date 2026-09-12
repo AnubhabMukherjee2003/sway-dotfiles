@@ -18,3 +18,7 @@ Thumbs.db
 *.tmp
 *.swp
 *.swo
+manjaro-reference
+
+# Generated theme files (but keep initial defaults)
+# Generated files are recreated by theme.sh

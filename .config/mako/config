@@ -1,0 +1,31 @@
+# Mako notification daemon configuration
+# Theming is handled by the central theme system
+
+include=~/.config/sway/themes/generated/mako-colors
+
+[main]
+# Dimensions and positioning
+width=400
+height=200
+margin=20
+padding=20
+
+# Appearance
+border-radius=0
+border-size=2
+
+# Default timeout in milliseconds (0 = no timeout)
+default-timeout=5000
+ignore-timeout=0
+
+# Sort notifications
+sort=-time
+
+# Text formatting
+font=Monospace 10
+
+# Backlight dimming when fullscreen
+layer=overlay
+
+# History key binding
+history-length=100
