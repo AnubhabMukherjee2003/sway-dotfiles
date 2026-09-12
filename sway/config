@@ -147,6 +147,9 @@ bindsym $mod+Shift+e exec swaymsg exit
 ############################
 # Startup
 ############################
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec systemctl --user stop pipewire pipewire-pulse wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
+exec systemctl --user start pipewire pipewire-pulse wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
 
 exec waybar
 exec mako
