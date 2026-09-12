@@ -1,0 +1,20 @@
+# Runtime / generated files
+.config/**/*.cache
+.config/**/*.log
+
+# Neovim
+.config/nvim/.luarc.json
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+*.secret
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
