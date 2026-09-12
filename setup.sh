@@ -278,15 +278,11 @@ EOF
 cat > "$DOTFILES/README.md" <<'EOF'
 # Portable Sway Dotfiles
 
-Personal Linux desktop configuration based initially on the
-Manjaro Sway desktop-settings project.
+Personal Linux desktop configuration based initially on the Manjaro
+Sway desktop-settings project.
 
-The goal is a portable, user-local configuration that works across
-Linux distributions without depending on:
-
-- /etc/sway
-- /usr/share/sway
-- Manjaro-specific configuration paths
+The repository is intentionally user-local and portable. It keeps the
+configuration in the user profile and avoids system-wide desktop paths.
 
 ## Structure
 

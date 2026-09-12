@@ -1,10 +1,10 @@
-# definitions overrides for sway
+# Sway definition overrides
 
 User-local Sway definitions belong in this directory.
 
-e.g.:
+Examples:
 
 * change modifier key from Win/Pine-Key to Alt: `set $mod Mod1`
-* change the background image: `set $background /usr/share/wallpapers/manjaro-nudes.png`
-* make a foot client instance the default terminal for even faster terminal windows: `set $term footclient`
+* make a foot client instance the default terminal: `set $term footclient`
 * follow windows after moving them: `set $focus_after_move true`
+

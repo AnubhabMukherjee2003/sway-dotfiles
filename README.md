@@ -3,12 +3,8 @@
 Personal Linux desktop configuration based initially on the Manjaro
 Sway desktop-settings project.
 
-The repository is intentionally user-local and portable. It avoids
-system-wide paths such as:
-
-- /etc/sway
-- /usr/share/sway
-- Manjaro-specific desktop config locations
+The repository is intentionally user-local and portable. It keeps the
+configuration in the user profile and avoids system-wide desktop paths.
 
 This dotfiles repo is designed to work on Debian and Arch-based
 systems using the same source tree and a distro-aware installer.
