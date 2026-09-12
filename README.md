@@ -23,7 +23,13 @@ Linux distributions without depending on:
 
 ## Deployment
 
-Use the deployment script to copy the repository configuration
-into the real user's ~/.config directory.
+Install dependencies and deploy from any checkout location:
+
+	./install.sh
+
+The installer detects `apt` or `pacman`, installs the matching package
+list, and calls `deploy.sh`. Deployment copies the repository
+configuration into `${XDG_CONFIG_HOME:-~/.config}` after creating a
+timestamped backup.
 
 No symlinks are used.

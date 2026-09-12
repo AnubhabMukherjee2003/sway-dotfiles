@@ -1,7 +1,28 @@
-@import "colors.css";
-@import "/usr/share/sway/templates/waybar/style.css";
+* {
+	border: none;
+	border-radius: 0;
+	font-family: sans-serif;
+	font-size: 13px;
+}
+
+window#waybar {
+	background: #141a1b;
+	color: #eeeeee;
+}
+
+#workspaces button,
+#clock,
+#network,
+#pulseaudio,
+#tray {
+	padding: 0 8px;
+}
+
+#workspaces button.focused {
+	background: #16a085;
+	color: #141a1b;
+}
 
 /* Add your custom styles below — this file is yours to edit freely.
  * colors.css is auto-managed by the theme switcher.
- * To override the system style, add rules here instead of editing the
- * system template at /usr/share/sway/templates/waybar/style.css */
+ * Add local overrides below. */

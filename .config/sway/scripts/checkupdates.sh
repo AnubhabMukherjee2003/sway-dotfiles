@@ -1,11 +1,15 @@
 #!/bin/sh
 
 get_updates() {
-    CACHE_FILE="/tmp/pamac-checkupdates-$USER"
+    CACHE_FILE="/tmp/checkupdates-$USER"
     if [ -f "$CACHE_FILE" ] && [ $(($(date +%s) - $(stat -c %Y "$CACHE_FILE"))) -lt 30 ]; then
         cat "$CACHE_FILE"
+    elif command -v checkupdates >/dev/null 2>&1; then
+        checkupdates | tee "$CACHE_FILE"
+    elif command -v apt >/dev/null 2>&1; then
+        apt list --upgradable 2>/dev/null | sed '1d' | tee "$CACHE_FILE"
     else
-        pamac checkupdates -q -a | tee "$CACHE_FILE"
+        : > "$CACHE_FILE"
     fi
 }
 
@@ -26,10 +30,13 @@ case $1'' in
         xdg-terminal-exec pacseek -u
     elif [ -x "$(command -v topgrade)" ]; then
         xdg-terminal-exec topgrade
-    elif [ -x "$(command -v pamac-manager)" ]; then
-        pamac-manager --updates
-    else
+    elif command -v apt >/dev/null 2>&1; then
+        xdg-terminal-exec sh -c 'sudo apt update && sudo apt upgrade'
+    elif command -v pacman >/dev/null 2>&1; then
         xdg-terminal-exec pacman -Syu
+    else
+        printf '%s\n' 'No supported package manager found.' >&2
+        exit 1
     fi
     ;;
 esac

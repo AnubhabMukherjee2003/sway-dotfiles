@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
 # wrapper script for foot
 
-USER_CONFIG_PATH="${HOME}/.config/foot/foot.ini"
-USER_THEME_CONFIG_PATH="${HOME}/.config/foot/foot-theme.ini"
+CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+USER_CONFIG_PATH="${CONFIG_HOME}/foot/foot.ini"
+USER_THEME_CONFIG_PATH="${CONFIG_HOME}/foot/foot-theme.ini"
 
 if [ -f "$USER_THEME_CONFIG_PATH" ]; then
     USER_CONFIG=$USER_THEME_CONFIG_PATH
@@ -12,4 +13,4 @@ if [ -f "$USER_CONFIG_PATH" ]; then
     USER_CONFIG=$USER_CONFIG_PATH
 fi
 
-foot -c "${USER_CONFIG:-"/usr/share/sway/templates/foot.ini"}" $@
+exec foot -c "${USER_CONFIG:-$USER_CONFIG_PATH}" "$@"

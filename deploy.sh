@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-DOTFILES="$HOME/dotfiles"
+DOTFILES="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE="$DOTFILES/.config"
-TARGET="$HOME/.config"
+TARGET="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 echo "======================================"
 echo "       Deploying dotfiles"
@@ -18,6 +18,11 @@ echo "  $TARGET"
 echo
 
 mkdir -p "$TARGET"
+
+if [[ ! -d "$SOURCE" ]]; then
+    echo "Configuration source does not exist: $SOURCE" >&2
+    exit 1
+fi
 
 # --------------------------------------------------
 # Backup current configuration

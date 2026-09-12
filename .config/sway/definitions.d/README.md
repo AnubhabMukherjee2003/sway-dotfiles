@@ -1,6 +1,6 @@
 # definitions overrides for sway
 
-refer to /etc/sway/definitions for global definitions that can be overridden here
+User-local Sway definitions belong in this directory.
 
 e.g.:
 
